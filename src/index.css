@@ -1,0 +1,39 @@
+@font-face {
+  font-family: cairo;
+  src: url("./assets/Fonts/Cairo-Regular.ttf");
+}
+
+@import "tailwindcss";
+
+@theme {
+  --color-main: #17338e;
+  --color-second: #44cc98;
+  --font-cairo: cairo, "sans-serif";
+}
+
+#swiper {
+  position: relative;
+  z-index: 0 !important;
+}
+
+.active-Profile {
+  @apply rounded-full w-10 h-10 flex items-center justify-center text-white  bg-second;
+}
+
+.nonActive-Profile {
+  @apply text-main bg-[#F0F4FE]  rounded-full w-10 h-10 flex items-center justify-center;
+}
+
+@keyframes move {
+  0%,
+  100% {
+    left: 0;
+  }
+  50% {
+    left: calc(100% - 100px);
+  }
+}
+
+.before\:animate-move::before {
+  animation: move 4s infinite;
+}
