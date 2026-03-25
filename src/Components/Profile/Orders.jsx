@@ -2,6 +2,9 @@ import Product from "../../assets/Cart/image.svg";
 import { IoMdCloudDone } from "react-icons/io";
 import Riyal from "../../assets/Cart/Vector (1).svg";
 const Orders = () => {
+
+
+  
   return (
     <section className="min-h-screen">
       <div className="py-8 max-w-7xl mx-auto ">

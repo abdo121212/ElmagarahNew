@@ -1,94 +1,90 @@
-import { IoIosAdd } from "react-icons/io";
-import { MdOutlineDelete } from "react-icons/md";
-import { FiEdit } from "react-icons/fi";
-import { HiOutlineHome } from "react-icons/hi";
+import { BiPlus } from "react-icons/bi";
+import { useContext, useEffect, useState } from "react";
+import { AddressContext } from "../../Context/AddressContext";
+import AddAddress from "../Profile/AddAddress";
+import EditAddress from "../Profile/EditAddress";
 
-const Address = () => {
+const Address = ({ selectedAddress, setSelectedAddress }) => {
+  const [address, setAddress] = useState(false);
+  const [updateAddress, setUpdateAddress] = useState(false);
+
+  const { personalAddress, getAddress } = useContext(AddressContext);
+
+  useEffect(() => {
+    getAddress();
+  }, []);
+
   return (
-    <div className="my-8 font-cairo  bg-white shadow-2xl p-2 rounded-2xl w-full">
-      <div className="flex  items-center space-x-2 py-5 w-full">
-        <HiOutlineHome size={30} />
-
-        <h4 className="font-extrabold text-2xl ">عنوان الشحن</h4>
+    <section className="my-10 bg-white rounded-2xl p-5">
+      <div className="flex items-center gap-2 mb-6 border-b pb-4">
+        <h4 className="font-extrabold text-2xl font-cairo text-[#000E39]">
+          عنوان الشحن
+        </h4>
       </div>
 
-      <div className="flex w-full gap-2.5 max-md:flex-col bg-white ">
-        <label className="flex w-full  flex-col  space-y-5 px-4 py-3 border shadow border-gray-200  rounded-xl cursor-pointer hover:bg-gray-50 duration-200">
-          <input
-            type="radio"
-            name="address"
-            value="updates"
-            className="w-5 h-5 accent-blue-600 "
-          />
+      <div className="grid grid-cols-3 gap-4 max-lg:grid-cols-1">
+        {/* لو فيه عناوين */}
+        {personalAddress.length > 0 &&
+          personalAddress.map(({ id, city, area, street, building_number }) => (
+            <div key={id} className="flex w-full gap-2.5 max-md:flex-col">
+              {/* 2. إضافة التنسيق الشرطي عند الاختيار */}
+              <label
+                className={`flex w-full flex-col space-y-5 px-4 py-3 border shadow rounded-xl cursor-pointer hover:bg-gray-50 duration-200 transition-all ${
+                  selectedAddress === id
+                    ? "border-main ring-2 ring-main/10 bg-main/5"
+                    : "border-gray-200"
+                }`}
+              >
+                <input
+                  type="radio"
+                  name="address"
+                  // 3. ربط القيمة بـ ID العنوان
+                  value={id}
+                  checked={selectedAddress === id}
+                  // 4. تحديث الحالة في ملف الـ Cart عند التغيير
+                  onChange={() => setSelectedAddress(id)}
+                  className="w-5 h-5 accent-main"
+                />
 
-          <div className="flex  flex-col  space-y-2.5">
-            <h4 className="font-bold text-xl">الرياض - حي الندى</h4>
+                <div className="flex flex-col space-y-2.5">
+                  <h4 className="font-bold text-xl text-[#000E39]">
+                    {city?.name || "العنوان"}
+                  </h4>
+                  <p className="text-sm text-gray-500 leading-relaxed">
+                    {city?.name}، {area}، شارع {street}، مبنى {building_number}
+                  </p>
+                </div>
+              </label>
+            </div>
+          ))}
 
-            <p className="text-md ">
-              شقة 402، برج الفيحاء، طريق الكورنيش، حي الحمراء، جدة 23212،
-              المملكة العربية السعودية
-            </p>
+        {/* لو مفيش عناوين */}
+        {personalAddress.length === 0 && (
+          <div className="col-span-3 flex flex-col items-center justify-center py-10 border border-dashed rounded-xl text-gray-400">
+            <p className="font-cairo text-lg">لا يوجد عنوان حالياً</p>
+            <p className="text-sm">يرجى إضافة عنوان جديد للمتابعة</p>
           </div>
+        )}
 
-          <div
-            className="flex  w-full gap-5
-          "
-          >
-            <button className="flex bg-[#000E39] text-white w-full rounded-2xl items-center justify-center py-2 px-3 space-x-3">
-              <h4 className="text-lg   font-medium">حذف العنوان</h4>
-              <MdOutlineDelete size={30} />
-            </button>
-
-            <button className="flex bg-main text-white w-full rounded-2xl items-center justify-center py-2 px-3 space-x-3">
-              <h4 className="text-lg   font-medium">تعديل العنوان</h4>
-              <FiEdit size={30} />
-            </button>
-          </div>
-        </label>
-
-        <label className="flex w-full  flex-col  space-y-5 px-4 py-3 border shadow border-gray-200  rounded-xl cursor-pointer hover:bg-gray-50 duration-200">
-          <input
-            type="radio"
-            name="address"
-            value="updates"
-            className="w-5 h-5 accent-blue-600"
-          />
-
-          <div className="flex  flex-col  space-y-2.5">
-            <h4 className="font-bold text-xl">الرياض - حي الندى</h4>
-
-            <p className="text-md ">
-              شقة 402، برج الفيحاء، طريق الكورنيش، حي الحمراء، جدة 23212،
-              المملكة العربية السعودية
-            </p>
-          </div>
-
-          <div
-            className="flex  w-full gap-5
-          "
-          >
-            <button className="flex bg-[#000E39] text-white w-full rounded-2xl items-center justify-center py-2 px-3 space-x-3">
-              <h4 className="text-lg   font-medium">حذف العنوان</h4>
-
-              <MdOutlineDelete size={30} />
-            </button>
-
-            <button className="flex bg-main text-white w-full rounded-2xl items-center justify-center py-2 px-3 space-x-3">
-              <h4 className="text-lg   font-medium">تعديل العنوان</h4>
-              <FiEdit size={30} />
-            </button>
-          </div>
-        </label>
+        {/* زر اضافة عنوان */}
+        <div
+          onClick={() => setAddress(true)}
+          className="flex flex-col items-center justify-center space-y-2 px-4 py-6 border border-dashed border-gray-300 rounded-xl cursor-pointer hover:bg-gray-50 hover:border-main text-gray-400 hover:text-main duration-200"
+        >
+          <BiPlus size={40} />
+          <p className="font-cairo font-bold">اضافة عنوان جديد</p>
+        </div>
       </div>
 
-      <div className="w-full flex items-center justify-center my-4">
-        <button className="flex bg-second text-white  rounded-2xl items-center justify-center py-2 px-3 space-x-1">
-          <h4 className="text-lg   font-medium">اضافة عنوان جديد</h4>
+      {address && <AddAddress address={address} setAddress={setAddress} />}
 
-          <IoIosAdd size={30} />
-        </button>
-      </div>
-    </div>
+      {updateAddress && (
+        <EditAddress
+          updateAddress={updateAddress}
+          setUpdateAddress={setUpdateAddress}
+        />
+      )}
+    </section>
   );
 };
 

@@ -96,6 +96,7 @@ const AddressProvider = ({ children }) => {
       // console.log(error);
     }
   }
+
   async function getAddressById(address_id) {
     try {
       const options = {

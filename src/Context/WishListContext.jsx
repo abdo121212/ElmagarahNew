@@ -30,11 +30,7 @@ export default function WhishListProvider({ children }) {
           isLoading: false,
           autoClose: 3000,
         });
-
-        // تحديث الحالة محلياً فوراً عشان الـ UI يتغير قدام المستخدم
-        setDataFromWishList((prev) =>
-          prev.filter((item) => item.product.slug !== product_slug),
-        );
+        await getProductFromWishlist();
       }
     } catch (error) {
       toast.update(toastId, {
@@ -47,7 +43,6 @@ export default function WhishListProvider({ children }) {
   }
 
   async function addProductToWishList(product_slug) {
-    // بنخزن الـ ID بتاع التوست عشان نحدثه بعدين
     const toastId = toast.loading("جاري إضافة المنتج للمفضلة...");
 
     try {
@@ -66,15 +61,13 @@ export default function WhishListProvider({ children }) {
 
       if (response.status === 201 || response.status === 200) {
         // بدلاً من Success جديد، بنحدث الـ Loading الحالي
+        await getProductFromWishlist();
         toast.update(toastId, {
           render: "تم إضافة المنتج بنجاح! ❤️",
           type: "success",
           isLoading: false,
           autoClose: 3000, // يقفل تلقائي بعد 3 ثواني
         });
-
-        // (اختياري) لو عايز الـ UI يتحدث فوراً في أماكن تانية، ممكن تنادي getProductFromWishlist
-        // getProductFromWishlist();
       }
     } catch (error) {
       if (error.response?.status === 422) {
@@ -96,7 +89,6 @@ export default function WhishListProvider({ children }) {
     }
   }
   async function getProductFromWishlist() {
-    if (!token) return; // حماية لو مفيش توكن
     try {
       const options = {
         url: "https://api.sakank.net/api/wishlist",

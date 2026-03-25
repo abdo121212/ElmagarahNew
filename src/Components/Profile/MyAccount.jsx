@@ -8,13 +8,8 @@ import { useFormik } from "formik";
 import { useContext, useEffect, useState } from "react";
 import { PersonalContext } from "../../Context/InformationUser";
 import EditPersonal from "./EditPersonal";
-// import axios from "axios";
-// import { useAuth } from "../../Context/AuthContext";
 const MyAccount = () => {
-  // const { token } = useAuth();
-
   const { getPersonalInfo } = useContext(PersonalContext);
-  // const [loadingBut, setLoadingBut] = useState(false);
 
   const [showModulePass, setShowModulePass] = useState(false);
   const [formData, setFormData] = useState(null);
@@ -38,36 +33,9 @@ const MyAccount = () => {
     onSubmit,
   });
 
-  // async function updateProfile(values) {
-  //   try {
-  //     setLoadingBut(true);
-  //     const { status } = await axios.put(
-  //       "https://api.sakank.net/api/profile/personal-information/edit",
-  //       values,
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       }
-  //     );
-  //     if (status == 200) {
-  //       toast.success("personal information updated successfully", {
-  //         position: "bottom-left",
-  //       });
-
-  //       loadingBut(false);
-  //     }
-  //   } catch (error) {
-  //     toast.error(error.response.data.message, { position: "bottom-left" });
-  //     setLoadingBut(false);
-
-  //     console.log(error);
-  //   }
-  // }
-
   useEffect(() => {
     getPersonalInfo();
-  });
+  }, []);
   return (
     <form>
       <div className="w-full h-full flex items-center justify-center  ">

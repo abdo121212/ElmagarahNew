@@ -16,7 +16,7 @@ const WishList = () => {
   } = useContext(WishListContext);
   useEffect(() => {
     getProductFromWishlist();
-  }, [dataFromWishList]); // شلنا التابع هنا عشان ما يدخلش في Infinite Loop لو الداتا اتغيرت جوه الدالة
+  }, []);
 
   return (
     <section className="bg-[#F8F9FB] min-h-screen py-5 font-cairo" dir="rtl">

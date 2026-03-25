@@ -12,7 +12,7 @@ const ProLayout = () => {
 
   useEffect(() => {
     getPersonalInfo();
-  });
+  }, []);
 
   return (
     <>

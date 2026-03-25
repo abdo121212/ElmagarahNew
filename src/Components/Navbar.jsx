@@ -54,11 +54,9 @@ const Navbar = () => {
   const { getPersonalInfo, dataForUser } = useContext(PersonalContext);
 
   useEffect(() => {
-    if (token) {
-      getPersonalInfo();
-      getProductFromWishlist();
-      getProductFromCart();
-    }
+    getPersonalInfo();
+    getProductFromWishlist();
+    getProductFromCart();
   }, []);
 
   useEffect(() => {
@@ -157,7 +155,10 @@ const Navbar = () => {
                         <div className="flex items-center gap-4">
                           {/* صورة المنتج - البيانات الحقيقية لا تحتوي على صورة رابط مباشر */}
                           <div className="w-12 h-12 bg-white border border-gray-100 rounded-xl flex items-center justify-center text-2xl shadow-sm group-hover/item:scale-110 duration-300 transition-transform">
-                            {item.image || "📦"}
+                            <img
+                              src={`https://api.sakank.net/storage/${item.images[0].file_path}`}
+                              alt=""
+                            />
                           </div>
 
                           <div className="flex flex-col">

@@ -14,16 +14,10 @@ import { CartContext } from "../../Context/CartContext";
 const Offers = () => {
   const { addProductToWishList } = useContext(WishListContext);
 
-  // const { addProductToCart } = useContext(CartContext);
   async function getProducts() {
     const { data } = await axios.get("https://api.sakank.net/api/home-page");
     return data;
   }
-
-  // const handelAddToCart = {
-  //   variant_id: id,
-  //   quantity: count,
-  // };
 
   const { data, isLoading } = useQuery({
     queryKey: ["home-page"],
@@ -54,7 +48,7 @@ const Offers = () => {
 
         {/* Products Grid - Full Width */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-          {data?.map(({ id, name, base_price, slug, images  ,  }) => (
+          {data?.map(({ id, name, base_price, slug, images }) => (
             <div
               key={id}
               className="group bg-white rounded-[2.5rem] p-4 transition-all duration-500 hover:shadow-[0_22px_50px_-12px_rgba(0,14,57,0.1)] border border-transparent hover:border-gray-100 relative"

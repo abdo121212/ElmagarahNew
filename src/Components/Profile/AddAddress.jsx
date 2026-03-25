@@ -54,7 +54,7 @@ const AddAddress = ({ address, setAddress }) => {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
       if (status == 201) {
         toast.success("address added successfully", {

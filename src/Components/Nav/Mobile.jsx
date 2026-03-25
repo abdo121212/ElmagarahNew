@@ -20,11 +20,9 @@ const Mobile = () => {
 
   useEffect(() => {
     getProductFromCart();
-  }, [dataCart]);
-
-  useEffect(() => {
     getProductFromWishlist();
-  }, [dataFromWishList]);
+  }, []);
+
   return (
     <>
       <div className="bg-main h-[240] max-w-full md:hidden container px-7 py-3  space-y-4">

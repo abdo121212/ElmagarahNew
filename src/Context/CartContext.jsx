@@ -33,7 +33,7 @@ const CartContextProvider = ({ children }) => {
       if (response.status === 200) {
         toast.success("تمت إضافة المنتج إلى سلتك بنجاح!");
         saveGuestToken(response.data?.guest_token);
-        console.log("done");
+        await getProductFromCart();
       }
     } catch (error) {
       if (error.response.status === 500) {
@@ -101,6 +101,7 @@ const CartContextProvider = ({ children }) => {
 
       if (status === 200) {
         toast.success("تم تعديل الكمية بنجاح");
+        await getProductFromCart();
       }
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -114,33 +115,31 @@ const CartContextProvider = ({ children }) => {
   }
 
   async function removeItemFromCart(id) {
-    const authHeader = token
-      ? { Authorization: `Bearer ${token}` }
-      : guestToken
-        ? { guest_token: guestToken }
-        : {};
+    const authHeader = token ? { Authorization: `Bearer ${token}` } : {};
 
     const toastLoad = toast.loading("جاري حذف المنتج...");
 
     try {
-      const { status, data } = await axios.delete(
+      const { status } = await axios.delete(
         "https://api.sakank.net/api/cart/destroy",
         {
           headers: {
             ...authHeader,
           },
           data: {
-            guest_token: guestToken ? guestToken : "",
+            guest_token: guestToken && guestToken,
             cart_item_id: id,
           },
         },
       );
 
-      if (status === 200) {
-        setDataCart(data); // تحديث الكارت فوراً
+      if (status === 204) {
         toast.success("تم حذف المنتج بنجاح");
+        await getProductFromCart();
       }
     } catch (error) {
+      console.log("error", error);
+
       toast.error("فشل حذف المنتج");
     } finally {
       toast.dismiss(toastLoad);

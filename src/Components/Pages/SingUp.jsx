@@ -78,7 +78,6 @@ const SingUp = () => {
     initialValues,
   });
 
-  console.log("errors", errors);
 
   return (
     <>
@@ -88,7 +87,7 @@ const SingUp = () => {
         <meta name="description" content="Registration to your account" />
       </Helmet>
       <section
-        className="w-full screen bg-cover bg-center"
+        className="w-full h-screen bg-cover bg-center"
         style={{ backgroundImage: `url(${backGround})` }}
       >
         <div className="container px-8 mx-auto py-8 select-none">

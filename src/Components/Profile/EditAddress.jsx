@@ -27,7 +27,6 @@ const EditAddress = ({ updateAddress, setUpdateAddress, address_id }) => {
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedRegion, setSelectedRegion] = useState("");
 
-
   const { token } = useAuth();
 
   const [loadingBut, setLoadingBut] = useState(false);
@@ -62,7 +61,7 @@ const EditAddress = ({ updateAddress, setUpdateAddress, address_id }) => {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
       if (status == 200) {
         toast.success("address updated successfully", {
@@ -106,7 +105,7 @@ const EditAddress = ({ updateAddress, setUpdateAddress, address_id }) => {
                 <p className="font-semibold text-lg "> تعديل عنوان الشحن </p>
               </div>
               <div
-                onClick={() => updateAddress(!updateAddress )}
+                onClick={() => updateAddress(!updateAddress)}
                 className="bg-[#A3A3A3] w-10 h-10 rounded-full  flex items-center justify-center cursor-pointer"
               >
                 <CgClose
