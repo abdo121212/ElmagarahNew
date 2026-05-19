@@ -10,7 +10,7 @@ import img3 from "../assets/Feature/Group 427319340.svg";
 import ReactImageGallery from "react-image-gallery";
 import MoreDetails from "./Pages/MoreDetails";
 import Preview from "./Pages/Preview";
-// import Offers from "./HeroSection/Offers";
+// import Offers from "./H  ddderoSection/Offers";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";

@@ -4,7 +4,7 @@ import { AddressContext } from "../../Context/AddressContext";
 import AddAddress from "../Profile/AddAddress";
 import EditAddress from "../Profile/EditAddress";
 
-const Address = ({ selectedAddress, setSelectedAddress }) => {
+   const Address = ({ selectedAddress, setSelectedAddress }) => {
   const [address, setAddress] = useState(false);
   const [updateAddress, setUpdateAddress] = useState(false);
 
